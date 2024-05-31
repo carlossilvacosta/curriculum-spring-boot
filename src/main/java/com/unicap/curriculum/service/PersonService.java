@@ -28,7 +28,12 @@ public class PersonService {
         return repository.save(person);
     }
 
-    public void deletePerson(Long id) {
-        repository.deleteById(id);
+    public String deletePerson(Long id) {
+        try {
+            repository.deleteById(id);
+            return "Deletado com Sucesso!";
+        } catch (Exception e) {
+            return "Erro";
+        }
     }
 }

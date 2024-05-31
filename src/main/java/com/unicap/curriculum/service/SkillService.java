@@ -28,7 +28,12 @@ public class SkillService {
         return repository.save(skill);
     }
 
-    public void deleteSkill(Long id) {
-        repository.deleteById(id);
+    public String deleteSkill(Long id) {
+        try {
+            repository.deleteById(id);
+            return "Deletado com Sucesso!";
+        } catch (Exception e) {
+            return "Erro";
+        }
     }
 }

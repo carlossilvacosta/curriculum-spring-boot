@@ -34,7 +34,7 @@ public class SkillController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteSkill(id);
+    public String delete(@PathVariable Long id) {
+        return service.deleteSkill(id);
     }
 }

@@ -34,7 +34,7 @@ public class ContactController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteContact(id);
+    public String delete(@PathVariable Long id) {
+        return service.deleteContact(id);
     }
 }

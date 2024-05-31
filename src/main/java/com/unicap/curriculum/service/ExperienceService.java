@@ -28,8 +28,12 @@ public class ExperienceService {
         return repository.save(experience);
     }
 
-    public void deleteExperience(Long id) {
-        repository.deleteById(id);
+    public String deleteExperience(Long id) {
+        try {
+            repository.deleteById(id);
+            return "Deletado com Sucesso!";
+        } catch (Exception e) {
+            return "Erro";
+        }
     }
-
 }

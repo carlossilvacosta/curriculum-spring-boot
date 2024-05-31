@@ -28,8 +28,12 @@ public class EducationService {
         return repository.save(education);
     }
 
-    public void deleteEducation(Long id) {
-        repository.deleteById(id);
+    public String deleteEducation(Long id) {
+        try {
+            repository.deleteById(id);
+            return "Deletado com Sucesso!";
+        } catch (Exception e) {
+            return "Erro";
+        }
     }
-
 }

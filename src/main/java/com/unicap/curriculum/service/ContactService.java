@@ -28,7 +28,12 @@ public class ContactService {
         return repository.save(contact);
     }
 
-    public void deleteContact(Long id) {
-        repository.deleteById(id);
+    public String deleteContact(Long id) {
+        try {
+            repository.deleteById(id);
+            return "Deletado com Sucesso!";
+        } catch (Exception e) {
+            return "Erro";
+        }
     }
 }
