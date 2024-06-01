@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/skills")
@@ -24,13 +25,13 @@ public class SkillController {
     }
 
     @GetMapping("/{id}")
-    public Skill getById(@PathVariable Long id) {
+    public Optional<Skill> getById(@PathVariable Long id) {
         return service.getSkillById(id);
     }
 
     @PutMapping("/{id}")
-    public Skill update(@RequestBody Skill skill) {
-        return service.updateSkill(skill);
+    public Optional<Skill> update(@PathVariable Long id, @RequestBody Skill skill) {
+        return service.updateSkill(id, skill);
     }
 
     @DeleteMapping("/{id}")

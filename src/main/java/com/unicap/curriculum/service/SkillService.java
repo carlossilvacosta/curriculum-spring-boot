@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SkillService {
@@ -20,12 +21,17 @@ public class SkillService {
         return repository.findAll();
     }
 
-    public Skill getSkillById(Long id) {
-        return repository.findById(id).orElse(null);
+    public Optional<Skill> getSkillById(Long id) {
+        return repository.findById(id);
     }
 
-    public Skill updateSkill(Skill skill) {
-        return repository.save(skill);
+    public Optional<Skill> updateSkill(Long id, Skill updateSkill) {
+        return repository.findById(id)
+                .map(skill -> {
+                    skill.setName(updateSkill.getName() != null ? updateSkill.getName() : skill.getName());
+                    skill.setLevel(updateSkill.getLevel() != null ? updateSkill.getLevel() : skill.getLevel());
+                    return repository.save(skill);
+                });
     }
 
     public String deleteSkill(Long id) {

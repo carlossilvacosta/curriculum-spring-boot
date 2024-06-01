@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/contacts")
@@ -24,13 +25,13 @@ public class ContactController {
     }
 
     @GetMapping("/{id}")
-    public Contact getById(@PathVariable Long id) {
+    public Optional<Contact> getById(@PathVariable Long id) {
         return service.getContactById(id);
     }
 
     @PutMapping("/{id}")
-    public Contact update(@RequestBody Contact contact) {
-        return service.updateContact(contact);
+    public Optional<Contact> update(@PathVariable Long id, @RequestBody Contact contact) {
+        return service.updateContact(id, contact);
     }
 
     @DeleteMapping("/{id}")

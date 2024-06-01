@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/experience")
@@ -24,13 +25,13 @@ public class ExperienceController {
     }
 
     @GetMapping("/{id}")
-    public Experience getById(@PathVariable Long id) {
+    public Optional<Experience> getById(@PathVariable Long id) {
         return service.getExperienceById(id);
     }
 
     @PutMapping("/{id}")
-    public Experience update(@RequestBody Experience experience) {
-        return service.updateExperience(experience);
+    public Optional<Experience> update(@PathVariable Long id, @RequestBody Experience experience) {
+        return service.updateExperience(id, experience);
     }
 
     @DeleteMapping("/{id}")

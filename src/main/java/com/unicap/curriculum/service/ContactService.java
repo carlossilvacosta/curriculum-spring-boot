@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContactService {
@@ -20,12 +21,19 @@ public class ContactService {
         return repository.findAll();
     }
 
-    public Contact getContactById(Long id) {
-        return repository.findById(id).orElse(null);
+    public Optional<Contact> getContactById(Long id) {
+        return repository.findById(id);
     }
 
-    public Contact updateContact(Contact contact) {
-        return repository.save(contact);
+    public Optional<Contact> updateContact(Long id, Contact updateContact) {
+        return repository.findById(id)
+                .map(contact -> {
+                    contact.setEmail(updateContact.getEmail() != null ? updateContact.getEmail() : contact.getEmail());
+                    contact.setPhone(updateContact.getPhone() != null ? updateContact.getPhone() : contact.getPhone());
+                    contact.setAddress(
+                            updateContact.getAddress() != null ? updateContact.getAddress() : contact.getAddress());
+                    return repository.save(contact);
+                });
     }
 
     public String deleteContact(Long id) {

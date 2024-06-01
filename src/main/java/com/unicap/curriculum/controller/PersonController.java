@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/person")
@@ -19,7 +20,7 @@ public class PersonController {
     }
 
     @GetMapping("/{id}")
-    public Person getById(@PathVariable Long id) {
+    public Optional<Person> getById(@PathVariable Long id) {
         return service.getPersonById(id);
     }
 
@@ -29,12 +30,12 @@ public class PersonController {
     }
 
     @PutMapping("/{id}")
-    public Person update(@RequestBody Person person) {
-        return service.updatePerson(person);
+    public Optional<Person> update(@PathVariable Long id, @RequestBody Person person) {
+        return service.updatePerson(id, person);
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
-       return service.deletePerson(id);
+        return service.deletePerson(id);
     }
 }
